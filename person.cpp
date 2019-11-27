@@ -1,3 +1,4 @@
+#include "pch.h"
 #include "person.h"
 
 bool person::isSick() {	
@@ -13,4 +14,7 @@ void person::getSick(int severity) {
 void person::cure() {
 	sick = false;
 	severity = 0;
+}
+bool person::operator > (person const &other) {
+	return this->severity > other.severity;
 }

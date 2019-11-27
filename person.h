@@ -9,6 +9,7 @@ public:
 	bool wasSick(); //returns if the patient was ever sick
 	void getSick(int severity); //makes the person sick with a severity of the passed in interger
 	void cure(); //removes the state of being sick from the person
+	bool operator > (person const &other); //comparing one person to another
 
 private:
 	std::string name; //holds the persons name
@@ -16,6 +17,7 @@ private:
 	bool sick; //the person is sick if this is true
 	bool everSick; //the person has been sick if this true
 	int severity; //if not sick == 0 if sick it indicates how sick from 1-20
+	
 };
 
 
