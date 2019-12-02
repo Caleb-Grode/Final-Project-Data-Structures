@@ -10,6 +10,7 @@ public:
 	void getSick(int severity); //makes the person sick with a severity of the passed in interger
 	void cure(); //removes the state of being sick from the person
 	bool operator > (person const &other); //comparing one person to another
+	int getSeverity();
 
 private:
 	std::string name; //holds the persons name
