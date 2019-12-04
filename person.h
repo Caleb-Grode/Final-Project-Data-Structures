@@ -1,16 +1,20 @@
 #ifndef PERSON_H
 #define PERSON_H
 #include <string>
+#include <iostream>
+//changed
 class person
 {
 public:
 	person();
+	person(int sev, std::string name);
 	bool isSick(); //returns if the person is sick
 	bool wasSick(); //returns if the patient was ever sick
 	void getSick(int severity); //makes the person sick with a severity of the passed in interger
 	void cure(); //removes the state of being sick from the person
 	bool operator > (person const &other); //comparing one person to another
 	int getSeverity();
+	std::string getName();
 
 private:
 	std::string name; //holds the persons name

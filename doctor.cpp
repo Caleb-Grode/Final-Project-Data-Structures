@@ -6,6 +6,9 @@ doctor::doctor() {
 	workingTime = 0;
 }
 bool doctor::treat(person& patient) {
+	std::cout << "Patient " << patient.getName() << " with severity " << patient.getSeverity() << " is being treated by a doctor." << std::endl;
+	std::cout << "They have been treated for " << workingTime << " minutes." << std::endl;
+	std::cout << std::endl;
 	if (!busy) { //if the nurse is just starting to treat the patient
 		busy = true; //the nurse is now busy
 		workingTime = 0;
