@@ -14,7 +14,7 @@ bool doctor::treat(person& patient) {
 		workingTime = 0;
 	}
 	if (workingTime == patient.getSeverity()) { //a severity of n takes n minutes to cure so if the working time == the severity the patient can be cured
-		patient.cure(); //cure the patient
+		patient.cure(); //cure the patient fssdfsd
 		busy = false; //the nurse is now not busy
 		return true; //the patient is cured. return true
 	}
