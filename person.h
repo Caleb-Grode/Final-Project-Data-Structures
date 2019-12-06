@@ -22,10 +22,11 @@ public:
 	bool wasSick();
 	void getSick(int severity);
 	void cure();
-	bool operator > (person const &other);
+	bool operator < (person const &other);
 	int getSeverity();
 	std::string getRandName();
 	void setName();
+	std::string getName();
 };
 
 #endif // PERSON_H
