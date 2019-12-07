@@ -15,29 +15,42 @@ person::person(int sev, std::string name) {
 
 }
 
-std::string person::getRandName()
+void person::openFile()
 {
 	std::string line;
-	std::fstream firstName;
+	std::ifstream FirstNamestxt;
 
-	firstName.open(".\\\\data\\\\Residents_of_273ville.txt");
+	FirstNamestxt.open(".\\\\data\\\\Residents_of_273ville.txt");
 
-	if(firstName.fail())
+	if (FirstNamestxt.fail())
 	{
 		std::cout << "Couldn't open the file" << std::endl;
-	} else if(firstName.is_open()) {	
-		while(!firstName.eof())
+	}
+	
+	if (FirstNamestxt.is_open())
+	{
+		while (getline(FirstNamestxt, line))
 		{
-			firstName >> line;
-			residents.push_back(line);
+			names.push_back(line);
 		}
-			firstName.close();
-		}
+	}
+    FirstNamestxt.close();
+	std::cout << names.size() << std::endl;
+}
 
-		int person = rand() % 1999;
-		std::string chosenPerson = residents.at(person);
+std::string person::getRandName()
+{
+	srand(time(NULL));
+	int randNum = rand() % 2000;
+	std::string randomName = names.at(randNum);
 
-		return chosenPerson;
+	return randomName;
+}
+
+std::string person::getName() 
+{ 
+	name = getRandName();
+	return name; 
 }
 
 void person::setName(){
