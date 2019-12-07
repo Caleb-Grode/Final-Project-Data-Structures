@@ -9,7 +9,7 @@ class person
 {
 private:
 	std::string name; //holds the persons name
-	std::vector<std::string> residents; //holds the 2000 persons that are in the town of Simville
+	std::vector<std::string> names; //holds the 2000 persons that are in the town of Simville
 	int numVisits; //number of times visiting the ER
 	bool sick; //the person is sick if this is true
 	bool everSick; //the person has been sick if this true
@@ -18,15 +18,16 @@ private:
 public:
 	person();
 	person(int sev, std::string name);
+	void openFile();
+	std::string getRandName();
+	std::string getName();
 	bool isSick();
 	bool wasSick();
 	void getSick(int severity);
 	void cure();
 	bool operator < (person const &other);
 	int getSeverity();
-	std::string getRandName();
 	void setName();
-	std::string getName();
 };
 
 #endif // PERSON_H
