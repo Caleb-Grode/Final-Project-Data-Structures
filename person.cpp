@@ -68,7 +68,8 @@ void person::getSick(int severity) {
 void person::cure() {
 	sick = false;
 	severity = 0;
-	std::cout << name << " has been cured! " << std::endl;
+	std::cout <<"--" << name << " has been cured! " << std::endl;
+	std::cout << std::endl;
 }
 
 bool person::operator < (person const& other) {
@@ -80,4 +81,7 @@ int person::getSeverity() {
 }
 std::string person::getName() {
 	return name;
+}
+person::~person() {
+	
 }

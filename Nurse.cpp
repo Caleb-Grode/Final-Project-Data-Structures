@@ -5,20 +5,22 @@ Nurse::Nurse(){
 	busy = false;
 	workingTime = 0;
 }
-
+bool Nurse::isBusy() {
+	return busy;
+}
 Nurse::~Nurse() {
 	//not super sure what we need to delete
 }
-bool Nurse::treat(person& patient) {
-	std::cout << "Patient " << patient.getName() << " with severity " << patient.getSeverity() << " is being treated by a nurse." << std::endl;
-	std::cout << "They have been treated for " << workingTime << " minutes." << std::endl;
+bool Nurse::treat(person & patient) {
+	std::cout << "__Patient " << patient.getName() << " with severity " << patient.getSeverity() << " is being treated by a nurse." << std::endl;
+	std::cout << "__They have been treated for " << workingTime << " minutes." << std::endl;
 	std::cout << std::endl;
 	if (!busy) { //if the nurse is just starting to treat the patient
 		busy = true; //the nurse is now busy
 		workingTime = 0;
 	}
 	if (workingTime == patient.getSeverity()) { //a severity of n takes n minutes to cure so if the working time == the severity the patient can be cured
-		patient.cure(); //cure the patient
+		patient.cure(); //cure the patient fssdfsd
 		busy = false; //the nurse is now not busy
 		return true; //the patient is cured. return true
 	}

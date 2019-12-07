@@ -10,6 +10,7 @@ public:
 	~Nurse();
 	bool treat(person &patient); //returns when/if patient is treated, uses the cure function on the patient that is passed in.
 	bool canTreat(int sev); //returns if the nurse can treat the illness (sev < 11)
+	bool isBusy();
 private:
 	bool busy;
 	int workingTime;

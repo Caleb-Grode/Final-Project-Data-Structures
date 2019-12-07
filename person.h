@@ -28,6 +28,8 @@ public:
 	bool operator < (person const& other);
 	int getSeverity();
 	void setName();
+	~person();
+	
 };
 
 #endif // PERSON_

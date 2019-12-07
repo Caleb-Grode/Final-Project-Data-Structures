@@ -14,7 +14,6 @@ void setUpER(EmergencyRoom * room); //takes in pointer to Emergency Room, lets u
 	bool medSevOccur(int seed); //returns whether a medium Severity patient arrives this clock tick, takes in a seed for the random number generator
 	bool highSevOccur(int seed); //returns whether a high Severity patient arrives this clock tick, takes in a seed for the random number generator
 	void updateRoomQueue(EmergencyRoom * r, int seed, std::vector<std::string>* names); //takes in a pointer to the emergency room and a seed time for the random number generator. Adds arriving person(s) to the priority queues
-	void takePatients(EmergencyRoom* r); //REMOVE
 	void openFile(std::vector<std::string> * names); //opens the file of names and puts them in the vector
 	std::string getRandName(std::vector<std::string> * names, int seed); //finds a random name from the vector of names
 
@@ -26,10 +25,12 @@ int main() {
 	openFile(&names);
 	
 	int runTime = 7 * 24 * 60;
+	runTime = 100;
 
 	for (int i = 0; i < runTime; i++) {
 		updateRoomQueue(ER, i, &names);
-		
+		ER->takePatients();
+		ER->treatPatients();
 
 	}
 
@@ -108,26 +109,7 @@ void updateRoomQueue(EmergencyRoom * r, int seed, std::vector<std::string>* name
 		r->addPatient(new person(sev, getRandName(names, seed)));
 	}
 }
-void takePatients(EmergencyRoom* r) {
-	//TODO make second queue for severitys < 11 and change names to reflect it (for high severities make it priority and low just a normal queue)
-	//THIS SHOULD BE A PART OF EMERGENCY ROOM
 
-	//find not busy doctor
-		//assign the not busy doctor and make them begin treating the highest priority patient
-			//check if the high priority queue is empty
-			//if not take and 
-				//treat from there
-			//if true take 
-					//from low priority queue (if it is not empty)
-	//iterate through the set of doctors and repeat this process
-	
-	//now that the doctors are treating the highest priority patients:
-
-	//find not busy nurse
-		//if the low priority queue has person(s) in it
-		//take and treat them
-
-}
 void openFile(std::vector<std::string>* names)
 {
 	std::string line;
