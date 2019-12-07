@@ -15,12 +15,15 @@ public:
 	void addPatient(person * p); //probably use with arrival object?
 	void addNurse(Nurse* n);
 	void addDoctor(doctor* d);
+	void setPatientsPerHour(int num);
 
 private:
 	std::vector<person *> residents; //holds the 2000 persons that are in the town of Simville (maybe change to a map or set etc to meet requirments of project
 	std::set<Nurse*> nurses;
 	std::set<doctor*> doctors;
-	std::priority_queue<person *> wait_room;
+	std::priority_queue<person*> high_sev; //can only be treated by doctors (severity 11-20)
+	std::priority_queue<person*> low_sev; //can be treated by both (severity 1-10)
+	int numPatientsPerHour;
 	   	   
 };
 

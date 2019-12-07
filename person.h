@@ -25,9 +25,9 @@ public:
 	bool wasSick();
 	void getSick(int severity);
 	void cure();
-	bool operator < (person const &other);
+	bool operator < (person const& other);
 	int getSeverity();
 	void setName();
 };
 
-#endif // PERSON_H
+#endif // PERSON_

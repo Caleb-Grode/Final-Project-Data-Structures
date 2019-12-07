@@ -1,5 +1,5 @@
 #include "person.h"
-
+#include <ctime>
 person::person() {
 	sick = false;
 	everSick = false;
@@ -9,8 +9,8 @@ person::person() {
 
 person::person(int sev, std::string name) {
 	this->name = name;
-	if (sev>0){
-		this ->getSick(sev);
+	if (sev > 0) {
+		this->getSick(sev);
 	}
 
 }
@@ -26,7 +26,7 @@ void person::openFile()
 	{
 		std::cout << "Couldn't open the file" << std::endl;
 	}
-	
+
 	if (FirstNamestxt.is_open())
 	{
 		while (getline(FirstNamestxt, line))
@@ -34,7 +34,7 @@ void person::openFile()
 			names.push_back(line);
 		}
 	}
-    FirstNamestxt.close();
+	FirstNamestxt.close();
 	std::cout << names.size() << std::endl;
 }
 
@@ -47,17 +47,13 @@ std::string person::getRandName()
 	return randomName;
 }
 
-std::string person::getName() 
-{ 
-	name = getRandName();
-	return name; 
-}
 
-void person::setName(){
+
+void person::setName() {
 	name = getRandName();
 }
 
-bool person::isSick() {	
+bool person::isSick() {
 	return sick;
 }
 bool person::wasSick() {
@@ -75,12 +71,12 @@ void person::cure() {
 	std::cout << name << " has been cured! " << std::endl;
 }
 
-bool person::operator < (person const &other) {
+bool person::operator < (person const& other) {
 	return this->severity < other.severity;
 }
 
-int person::getSeverity(){
-        return severity;
+int person::getSeverity() {
+	return severity;
 }
 std::string person::getName() {
 	return name;
