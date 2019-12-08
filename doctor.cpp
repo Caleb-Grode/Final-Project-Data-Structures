@@ -12,13 +12,15 @@ bool doctor::treat(person & patient) {
 	std::cout << "__Patient " << patient.getName() << " with severity " << patient.getSeverity() << " is being treated by a doctor." << std::endl;
 	std::cout << "__They have been treated for " << workingTime << " minutes." << std::endl;
 	std::cout << std::endl;
+	
 	if (!busy) { //if the nurse is just starting to treat the patient
 		busy = true; //the nurse is now busy
-		workingTime = 0;
+		
 	}
-	if (workingTime == patient.getSeverity()) { //a severity of n takes n minutes to cure so if the working time == the severity the patient can be cured
-		patient.cure(); //cure the patient fssdfsd
-		busy = false; //the nurse is now not busy
+	if (workingTime >= patient.getSeverity()) { //a severity of n takes n minutes to cure so if the working time == the severity the patient can be cured
+		busy = false; //the doctor is now not busy
+		patient.cure(); //cure the patient 
+		workingTime = 0; //reset the doctors working time
 		return true; //the patient is cured. return true
 	}
 	else {

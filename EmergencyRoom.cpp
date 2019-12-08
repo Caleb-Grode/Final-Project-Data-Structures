@@ -8,6 +8,7 @@ void EmergencyRoom::addPatient(person* p) {
 	
 	if (p->getSeverity() == 0) {
 		std::cout << "--Patient " << p->getName() << " has regular check up" << std::endl;
+		
 	}
 	if (p->getSeverity() > 10 && p->getSeverity() != 0) { //if the patient is of high severity, add them the the high severity queue (doctor only)
 		high_sev.push(p);
@@ -40,15 +41,19 @@ void EmergencyRoom::takePatients() {
 
 	if (!allDoctorsBusy) { //if there are free doctors (then the doctor at our iter is free)
 		if (!high_sev.empty()) { //if there is a person in the high priority queue
-			(*iter)->treat(*high_sev.top()); //treat them
-			beingTreated[*iter] = low_sev.top(); //map doctor to patient
-			high_sev.pop(); //person is now being treated, remove from queue
+			
+				(*iter)->treat(*high_sev.top()); //treat them
+				beingTreated[*iter] = high_sev.top(); //map doctor to patient
+				high_sev.pop(); //person is now being treated, remove from queue
+			
 		}
 		else if (!low_sev.empty()){ //if there was no one urgent to treat, treat check if there is a low priority patient to treat
-			(*iter)->treat(*low_sev.top()); //treat them
-			beingTreated[*iter] = low_sev.top(); //map doctor to patient
-			low_sev.pop(); //person is now being treated, remove from queue
-		}
+			
+				(*iter)->treat(*low_sev.top()); //treat them
+				beingTreated[*iter] = low_sev.top(); //map doctor to patient
+				low_sev.pop(); //person is now being treated, remove from queue
+			}
+		
 
 	}
 	
@@ -71,7 +76,6 @@ void EmergencyRoom::takePatients() {
 		}
 
 	}
-
 }
 
 void EmergencyRoom::treatPatients() {
@@ -79,21 +83,24 @@ void EmergencyRoom::treatPatients() {
 	std::set<doctor* >::iterator iter = doctors.begin();
 	std::set<Nurse* >::iterator iter2 = nurses.begin();
 
-	while (iter != doctors.end()) { //find not busy doctors
+	while (iter != doctors.end()) { //find busy doctors
 		if ((*iter)->isBusy()) { 
-			if ((*iter)->treat(*beingTreated[*iter])) { //if the patient is cured
+			if ((*iter)->treat(*beingTreated[*iter])) { //if the patient is cured/continue treating if not
 				beingTreated.erase(*iter); //delete the them from the map
 			}
 		}
 		++iter;
 	}
-	while (iter2 != nurses.end()) { //find not busy doctors
-		if ((*iter2)->isBusy()) {
-			if ((*iter2)->treat(*beingTreated[*iter2])) {
-				beingTreated.erase(*iter2);
+	while (iter2 != nurses.end()) { 
+		if ((*iter2)->isBusy()) {//find busy nurses
+			if ((*iter2)->treat(*beingTreated[*iter2])) { //have them continue to treat their patient
+				beingTreated.erase(*iter2); //if the patient is cured, remove them from the map as they are done
 			}
 		}
 		++iter2;
 	}
+
+}
+EmergencyRoom::~EmergencyRoom() {
 
 }

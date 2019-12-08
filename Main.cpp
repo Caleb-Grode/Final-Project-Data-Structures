@@ -35,7 +35,6 @@ int main() {
 	}
 
 	
-
 }
 
 void setUpER(EmergencyRoom * room) {

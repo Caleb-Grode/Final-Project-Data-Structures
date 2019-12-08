@@ -21,7 +21,7 @@ public:
 	void setPatientsPerHour(int num);
 	void takePatients();
 	void treatPatients();
-	
+	~EmergencyRoom();
 
 	
 
