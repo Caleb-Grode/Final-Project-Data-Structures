@@ -1,16 +1,13 @@
-//#include "pch.h"
-#include "Nurse.h"
-//changed 
+
+#include "Nurse.h" 
 Nurse::Nurse(){
 	busy = false;
 	workingTime = 0;
 }
-bool Nurse::isBusy() {
-	return busy;
+bool Nurse::isBusy() { //returns true if the nurse is with a patient
+	return busy; 
 }
-Nurse::~Nurse() {
-	//not super sure what we need to delete
-}
+
 bool Nurse::treat(person & patient) {
 	std::cout << "__Patient " << patient.getName() << " with severity " << patient.getSeverity() << " is being treated by a nurse." << std::endl;
 	std::cout << "__They have been treated for " << workingTime << " minutes." << std::endl;
@@ -34,5 +31,5 @@ bool Nurse::canTreat(int sev) {
 	if (sev <= 10) { //if the patients severity is 10 or less the nurse can treat the patient
 		return true;
 	}
-	return false;
+	return false; //otherwise they cannot treat
 }
