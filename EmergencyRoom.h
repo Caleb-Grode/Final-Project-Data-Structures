@@ -21,6 +21,7 @@ public:
 	void setPatientsPerHour(int num);
 	void takePatients();
 	void treatPatients();
+	void printNames();
 	~EmergencyRoom();
 
 	
@@ -33,7 +34,7 @@ private:
 	std::priority_queue<person*> low_sev; //can be treated by both (severity 1-10)
 	int numPatientsPerHour;
 	std::map<Personnel*, person*> beingTreated;
-	   	   
+	std::vector<std::string> residentsTreated;   
 };
 
 
