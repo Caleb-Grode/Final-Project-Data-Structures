@@ -17,6 +17,7 @@ void EmergencyRoom::addPatient(person* p) {
 				residentsTreated[p->getName()] = p;
 		}
 		else {
+			residentsTreated[p->getName()]->getSick(p->getSeverity());
 			high_sev.push(residentsTreated[p->getName()]);
 		}	
 	}
@@ -26,6 +27,7 @@ void EmergencyRoom::addPatient(person* p) {
 			residentsTreated[p->getName()] = p;
 		}
 		else {
+			residentsTreated[p->getName()]->getSick(p->getSeverity());
 			low_sev.push(residentsTreated[p->getName()]);
 		}
 	
@@ -126,6 +128,6 @@ void EmergencyRoom::printPatients() {
 	std::map <std::string, person*> ::iterator iter = residentsTreated.begin();
 	std::cout << "Residents Treated: " << std::endl;
 	for (iter; iter != residentsTreated.end(); iter++) {
-		std::cout << (*iter).second->getName() << std::endl;
+		std::cout << (*iter).second->getName() << " visits: " << (*iter).second->getNumVisits() << " Average time: " << (*iter).second->getAvgVisitTime() << std::endl;
 	}
 }

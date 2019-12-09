@@ -66,7 +66,7 @@ void person::getSick(int severity) {
 	this->severity = severity;
 	everSick = true;
 	totalTime += severity;
-	numVisits++;
+	
 }
 
 person * person::cure() {
@@ -74,6 +74,7 @@ person * person::cure() {
 	severity = 0;
 	std::cout <<"--" << name << " has been cured! " << std::endl;
 	std::cout << std::endl;
+	numVisits++;
 	return this;
 }
 
