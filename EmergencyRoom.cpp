@@ -12,9 +12,11 @@ void EmergencyRoom::addPatient(person* p) {
 	}
 	if (p->getSeverity() > 10 && p->getSeverity() != 0) { //if the patient is of high severity, add them the the high severity queue (doctor only)
 		high_sev.push(p);
+		residentsTreated.push_back(p->getName());
 	}
 	else if (p->getSeverity() != 0) { //otherwise send them to the low severity queue
 		low_sev.push(p);
+		residentsTreated.push_back(p->getName());
 	}
 	std::cout << std::endl;
 }
@@ -103,4 +105,12 @@ void EmergencyRoom::treatPatients() {
 }
 EmergencyRoom::~EmergencyRoom() {
 
+}
+
+void EmergencyRoom::printNames()
+{
+	for(int i=0; i < residentsTreated.size(); i++)
+	{
+		std::cout << residentsTreated.at(i) << std::endl;
+	}
 }
