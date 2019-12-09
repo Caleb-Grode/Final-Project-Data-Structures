@@ -10,10 +10,11 @@ class person
 private:
 	std::string name; //holds the persons name
 	std::vector<std::string> names; //holds the 2000 persons that are in the town of Simville
-	int numVisits; //number of times visiting the ER
+	float numVisits; //number of times visiting the ER
 	bool sick; //the person is sick if this is true
 	bool everSick; //the person has been sick if this true
 	int severity; //if not sick == 0 if sick it indicates how sick from 1-20
+	float totalTime;
 
 public:
 	person();
@@ -24,12 +25,13 @@ public:
 	bool isSick();
 	bool wasSick();
 	void getSick(int severity);
-	void cure();
+	person* cure();
 	bool operator < (person const& other);
 	int getSeverity();
 	void setName();
 	~person();
-	
+	float getAvgVisitTime();
+	int getNumVisits();
 };
 
 #endif // PERSON_

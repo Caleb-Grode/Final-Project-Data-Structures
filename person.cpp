@@ -5,10 +5,12 @@ person::person() {
 	everSick = false;
 	severity = 0;
 	numVisits = 0;
+	totalTime = 0;
 }
 
 person::person(int sev, std::string name) {
 	this->name = name;
+	totalTime = 0;
 	if (sev > 0) {
 		this->getSick(sev);
 	}
@@ -63,13 +65,16 @@ void person::getSick(int severity) {
 	sick = true;
 	this->severity = severity;
 	everSick = true;
+	totalTime += severity;
+	numVisits++;
 }
 
-void person::cure() {
+person * person::cure() {
 	sick = false;
 	severity = 0;
 	std::cout <<"--" << name << " has been cured! " << std::endl;
 	std::cout << std::endl;
+	return this;
 }
 
 bool person::operator < (person const& other) {
@@ -84,4 +89,10 @@ std::string person::getName() {
 }
 person::~person() {
 	
+}
+float person::getAvgVisitTime() {
+	return totalTime / numVisits;
+}
+int person::getNumVisits() {
+	return numVisits;
 }
