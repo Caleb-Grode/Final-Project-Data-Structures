@@ -37,7 +37,7 @@ int main() {
 		ER->treatPatients(); //patients are treated
 
 	}
-
+	room.printNames();
 	
 }
 
