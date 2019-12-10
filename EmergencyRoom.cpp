@@ -4,6 +4,8 @@ EmergencyRoom::EmergencyRoom() {
 	numPatientsPerHour = 0;
 }
 
+EmergencyRoom::~EmergencyRoom() { }
+
 void EmergencyRoom::addPatient(person* p) {
 	std::cout << "++Patient " << p->getName() << " with severity " << p->getSeverity() << " arrives" << std::endl;
 
@@ -35,20 +37,23 @@ void EmergencyRoom::addPatient(person* p) {
 	}
 	std::cout << std::endl;
 }
+
 void EmergencyRoom::addNurse(Nurse* n) {
 	nurses.insert(n); //add nurse to set of nurses
 }
+
 void EmergencyRoom::addDoctor(doctor* d) {
 	doctors.insert(d); //add doctor to set of doctors
 }
+
 void EmergencyRoom::setPatientsPerHour(int num) {
 	numPatientsPerHour = num; //set
 }
+
 void EmergencyRoom::takePatients() {
 	std::set<doctor* >::iterator iter = doctors.begin(); 
 	bool allDoctorsBusy = false;
 	while ((*iter)->isBusy()) { //if the doctor at the iterator is busy we do not want to assign them a patient and so we should move to the next
-
 		iter++;
 		if (iter == doctors.end()) { //if we have reached the end of the doctor set and have not found a non busy doctor, stop looking so we do not loop for ever
 			allDoctorsBusy = true; //all the doctors are busy
@@ -70,8 +75,6 @@ void EmergencyRoom::takePatients() {
 			beingTreated[*iter] = low_sev.top(); //map doctor to patient
 			low_sev.pop(); //person is now being treated, remove from queue
 		}
-
-
 	}
 
 	//now do the same process for nurses
@@ -118,41 +121,58 @@ void EmergencyRoom::treatPatients() {
 	}
 
 }
-EmergencyRoom::~EmergencyRoom() {
-
-}
 
 int EmergencyRoom::getPatientsPerHour() {
-	return numPatientsPerHour;
+	return numPatientsPerHour; // Number of patients per hour from the user
 }
 
 void EmergencyRoom::printPatients() {
+	// Print the list of patients that have been treated in the emergency room
+	// It functions as a record of patients
 	std::map <std::string, person*> ::iterator iter = residentsTreated.begin();
 	std::cout << "Residents Treated: " << std::endl;
-	for (iter; iter != residentsTreated.end(); iter++) {
-		std::cout << (*iter).second->getName() << " visits: " << (*iter).second->getNumVisits() << " Average time: " << (*iter).second->getAvgVisitTime() << std::endl;
+	for (iter; iter != residentsTreated.end(); iter++) { // iterate through the map of person objects printing relevant information
+		std::cout << (*iter).second->getName() << " visits: " << (*iter).second->getNumVisits() << " Average time: ";
+		std::cout << (*iter).second->getAvgVisitTime() << std::endl;
 	}
 }
 
 void EmergencyRoom::searchName() {
-	std::string names;
+	// Search an specific person object in the map by a key = name
+	std::string name;
 	std::cout << "Please Enter a valid name: ";
-	std::cin >> names;
+	std::cin >> name; // user input to find an specific name
 
 	std::map<std::string, person*>::iterator iter;
 
-	iter = residentsTreated.find(names);
-	std::cout << (*iter).second->getName() << " visits: " << (*iter).second->getNumVisits() << " Average time: " << (*iter).second->getAvgVisitTime() << std::endl;
+	iter = residentsTreated.find(name); // find the specific name in the map. Unique as maps don't accept duplicates
+	std::cout << (*iter).second->getName() << " visits: " << (*iter).second->getNumVisits() << " Average time: "; // print relevant information
+	std::cout << (*iter).second->getAvgVisitTime() << std::endl;
 }
+
+void EmergencyRoom::printAvgVisitTime() { 
+	// Average visit time of a patient in the hospital
+	/*
+		NOTE: the way that the program is set up considers the time of a person in the hospital equal to 
+		the severity of the illness i.e. if a person came into the hospital with a severity of 20, that
+		person spends 20 mins in the hospital until is cured
+	*/
+	float numTreated = residentsTreated.size();
+	float totalTime = 0;
+	std::map <std::string, person*> ::iterator iter = residentsTreated.begin();
+	for (iter; iter != residentsTreated.end(); iter++) {  // iterate through the people that was treated
+		if (!(*iter).second->isSick()) 
+			totalTime += (*iter).second->getAvgVisitTime(); // add their average times of visits together
+	}
+	std::cout << "Average Visit Time: " << totalTime / numTreated << std::endl; // divide by number of people that were treated
+}																				// to get a total of averages
 
 void EmergencyRoom::displayRecords()
 {
+	// Menu for the user in main to display records from patients that were treated
 	int ans = 0;
 	while (ans != 4)
 	{
-
-	
-
 	std::cout << "=================== PIRATES HOSPITAL ==================" << std::endl;
 	std::cout << "What would you like to do? " << std::endl;
 	std::cout << "1. Look at all the residents treated" << std::endl;
@@ -186,15 +206,4 @@ void EmergencyRoom::displayRecords()
 	}
 	
 	}
-}
-void EmergencyRoom::printAvgVisitTime() { //!!!!
-	float numTreated = residentsTreated.size();
-	float totalTime = 0;
-	std::map <std::string, person*> ::iterator iter = residentsTreated.begin();
-	for (iter; iter != residentsTreated.end(); iter++) {
-		if (!(*iter).second->isSick())
-			totalTime += (*iter).second->getAvgVisitTime();
-	}
-	std::cout << "Average Visit Time: " << totalTime / numTreated << std::endl;
-
 }
