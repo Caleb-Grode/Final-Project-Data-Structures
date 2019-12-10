@@ -181,3 +181,14 @@ void EmergencyRoom::displayRecords()
             }
         }
 }
+void EmergencyRoom::printAvgVisitTime() { //!!!!
+	float numTreated = residentsTreated.size();
+	float totalTime = 0;
+	std::map <std::string, person*> ::iterator iter = residentsTreated.begin();
+	for (iter; iter != residentsTreated.end(); iter++) {
+		if(!(*iter).second->isSick())
+			totalTime += (*iter).second->getAvgVisitTime();
+	}
+	std::cout << "Average Visit Time: " << totalTime / numTreated;
+
+}
