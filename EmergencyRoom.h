@@ -27,6 +27,7 @@ public:
 	void printPatients(); 
 	void searchName();
 	void displayRecords(); // Menu of options
+	void printAvgVisitTime();
 
 
 private:
