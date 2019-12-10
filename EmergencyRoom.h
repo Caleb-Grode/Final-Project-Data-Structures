@@ -23,8 +23,10 @@ public:
 	void treatPatients();
 	~EmergencyRoom();
 	int getPatientsPerHour();
-	void printPatients();
-	
+	// Records from Patients
+	void printPatients(); 
+	void searchName();
+	void displayRecords(); // Menu of options
 
 
 private:
@@ -37,9 +39,5 @@ private:
 	std::map<Personnel*, person*> beingTreated;
 	std::map<std::string, person*> residentsTreated;
 };
-
-
-
-
 
 #endif
