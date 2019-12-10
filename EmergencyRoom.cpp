@@ -3,6 +3,7 @@
 EmergencyRoom::EmergencyRoom() {
 	numPatientsPerHour = 0;
 }
+
 void EmergencyRoom::addPatient(person* p) {
 	std::cout << "++Patient " << p->getName() << " with severity " << p->getSeverity() << " arrives" << std::endl;
 
@@ -124,10 +125,59 @@ EmergencyRoom::~EmergencyRoom() {
 int EmergencyRoom::getPatientsPerHour() {
 	return numPatientsPerHour;
 }
+
 void EmergencyRoom::printPatients() {
 	std::map <std::string, person*> ::iterator iter = residentsTreated.begin();
 	std::cout << "Residents Treated: " << std::endl;
 	for (iter; iter != residentsTreated.end(); iter++) {
 		std::cout << (*iter).second->getName() << " visits: " << (*iter).second->getNumVisits() << " Average time: " << (*iter).second->getAvgVisitTime() << std::endl;
 	}
+}
+
+void EmergencyRoom::searchName(){
+	std::string names;
+	std::cout << "Plese Enter a valid name: ";
+	std:: cin >> names;
+
+	std::map<std::string, person*>:: iterator iter;
+
+	//iter = residentsTreated.find("names");
+	std::cout << "Name: " << residentsTreated.find("names")->second << std::endl;
+}
+
+void EmergencyRoom::displayRecords()
+{
+	int ans = 0;
+	std::cout << "=================== PIRATES HOSPITAL ==================" << std::endl;
+	std::cout << "What would you like to do? " << std::endl;
+    std::cout << "1. Look at all the residents treated" << std::endl;
+    std::cout << "2. Search by name a resident treated" <<std::endl;
+    std::cout << "3. Calculate average time of treatment" << std::endl;
+    std::cout << "4. Exit" << std::endl;
+	std::cout << "--------------------------------------------------" << std::endl;
+	std::cout << "Option: ";
+    std::cin >> ans;
+
+	if(ans < 0 || ans > 4)
+	{
+		std::cout<< "Option not valid!";
+	}
+
+	if ( ans >= 1 || ans <= 4)
+        {
+            switch(ans) {
+            case 1:
+            printPatients();
+            break;
+            case 2:
+            searchName();
+            break;
+            case 3:
+			// average time here
+            std:: cout << "HELLOOO" << std::endl;
+            break;
+            case 4:
+            break;
+            }
+        }
 }
