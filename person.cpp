@@ -1,6 +1,6 @@
 #include "person.h"
 #include <ctime>
-person::person() {
+person::person() { //create a person with default values
 	sick = false;
 	everSick = false;
 	severity = 0;
@@ -8,78 +8,53 @@ person::person() {
 	totalTime = 0;
 }
 
-person::person(int sev, std::string name) {
-	this->name = name;
-	totalTime = 0;
-	if (sev > 0) {
-		this->getSick(sev);
+person::person(int sev, std::string name) { //make a person
+	this->name = name; //set the name
+	totalTime = 0; //start time
+	if (sev > 0) { //if they have a valid severity
+		this->getSick(sev); //make them sick with it
 	}
 
 }
 
-void person::openFile()
-{
-	std::string line;
-	std::ifstream FirstNamestxt;
-
-	FirstNamestxt.open(".\\\\data\\\\Residents_of_273ville.txt");
-
-	if (FirstNamestxt.fail())
-	{
-		std::cout << "Couldn't open the file" << std::endl;
-	}
-
-	if (FirstNamestxt.is_open())
-	{
-		while (getline(FirstNamestxt, line))
-		{
-			names.push_back(line);
-		}
-	}
-	FirstNamestxt.close();
-	std::cout << names.size() << std::endl;
+//the failed functions
+void person::spendTime() {//!!!!
+	totalTime++; //add one to total time
 }
-
-std::string person::getRandName()
-{
-	srand(time(NULL));
-	int randNum = rand() % 2000;
-	std::string randomName = names.at(randNum);
-
-	return randomName;
+void person::loseTime() {//!!!!
+	totalTime--; //remove one from total time
 }
 
 
 
-void person::setName() {
-	name = getRandName();
-}
+
+
 
 bool person::isSick() {
-	return sick;
+	return sick; //return the bool value of if they are sick
 }
 bool person::wasSick() {
-	return everSick;
+	return everSick; //return the bool value of if they were ever sick
 }
-void person::getSick(int severity) {
-	sick = true;
-	this->severity = severity;
-	everSick = true;
-	totalTime += severity;
+void person::getSick(int severity) { 
+	sick = true; //person is now sick
+	this->severity = severity; //set their seveity to the passed in value
+	everSick = true; //they have now been sick
+	totalTime += severity; //add severity to the total time (it takes a doctor severity amount of time to cure the patient
 	
 }
 
 person * person::cure() {
-	sick = false;
-	severity = 0;
+	sick = false; //the person is now cured
+	severity = 0; //now severity
 	std::cout <<"--" << name << " has been cured! " << std::endl;
 	std::cout << std::endl;
-	numVisits++;
-	return this;
+	numVisits++; //increase number of visits
+	return this; //return itself
 }
 
 bool person::operator < (person const& other) {
-	return this->severity < other.severity;
+	return this->severity < other.severity; //compare the severities
 }
 
 int person::getSeverity() {
@@ -92,7 +67,10 @@ person::~person() {
 	
 }
 float person::getAvgVisitTime() {
-	return totalTime / numVisits;
+	if (numVisits != 0) //prevent divide by zero from patients who have not finished their visit at end of run time
+		return totalTime / numVisits;
+	else
+		return totalTime;
 }
 int person::getNumVisits() {
 	return numVisits;

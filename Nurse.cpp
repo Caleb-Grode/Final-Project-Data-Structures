@@ -23,7 +23,7 @@ bool Nurse::treat(person & patient) {
 		return true; //the patient is cured. return true
 	}
 	else {
-		workingTime++; //the patient is not cured. Credit one minute to the working time
+	workingTime++; //the patient is not cured. Credit one minute to the working time
 		return false; //the patient is not cured return false
 	}
 }

@@ -7,51 +7,51 @@ EmergencyRoom::EmergencyRoom() {
 void EmergencyRoom::addPatient(person* p) {
 	std::cout << "++Patient " << p->getName() << " with severity " << p->getSeverity() << " arrives" << std::endl;
 
-	if (p->getSeverity() == 0) {
+	if (p->getSeverity() == 0) { //patient is just there for a check up
 		std::cout << "--Patient " << p->getName() << " has regular check up" << std::endl;
 
 	}
 	if (p->getSeverity() > 10 && p->getSeverity() != 0) { //if the patient is of high severity, add them the the high severity queue (doctor only)
-		
-		if (residentsTreated[p->getName()] == NULL) {
-				high_sev.push(p);
-				residentsTreated[p->getName()] = p;
+
+		if (residentsTreated[p->getName()] == NULL) { //if this person has not visited before
+			high_sev.push(p); //add them 
+			residentsTreated[p->getName()] = p; //map the doctor to them
 		}
 		else {
-			residentsTreated[p->getName()]->getSick(p->getSeverity());
-			high_sev.push(residentsTreated[p->getName()]);
-		}	
+			residentsTreated[p->getName()]->getSick(p->getSeverity()); //they have visited before so find them in the map (by their name) make them sick with the severity passed in
+			high_sev.push(residentsTreated[p->getName()]); //map the doctor to them
+		}
 	}
 	else if (p->getSeverity() != 0) { //otherwise send them to the low severity queue
-		if (residentsTreated[p->getName()] == NULL) {
-			low_sev.push(p);
-			residentsTreated[p->getName()] = p;
+		if (residentsTreated[p->getName()] == NULL) { //if this person has not visited before
+			low_sev.push(p);//add them 
+			residentsTreated[p->getName()] = p; //map them to nurse
 		}
 		else {
-			residentsTreated[p->getName()]->getSick(p->getSeverity());
-			low_sev.push(residentsTreated[p->getName()]);
+			residentsTreated[p->getName()]->getSick(p->getSeverity()); //they have visited before so find them in the map (by their name) make them sick with the severity passed in
+			low_sev.push(residentsTreated[p->getName()]); //map them to the nurse
 		}
-	
+
 	}
 	std::cout << std::endl;
 }
 void EmergencyRoom::addNurse(Nurse* n) {
-	nurses.insert(n);
+	nurses.insert(n); //add nurse to set of nurses
 }
 void EmergencyRoom::addDoctor(doctor* d) {
-	doctors.insert(d);
+	doctors.insert(d); //add doctor to set of doctors
 }
 void EmergencyRoom::setPatientsPerHour(int num) {
-	numPatientsPerHour = num;
+	numPatientsPerHour = num; //set
 }
 void EmergencyRoom::takePatients() {
-	std::set<doctor* >::iterator iter = doctors.begin();
+	std::set<doctor* >::iterator iter = doctors.begin(); 
 	bool allDoctorsBusy = false;
 	while ((*iter)->isBusy()) { //if the doctor at the iterator is busy we do not want to assign them a patient and so we should move to the next
 
 		iter++;
 		if (iter == doctors.end()) { //if we have reached the end of the doctor set and have not found a non busy doctor, stop looking so we do not loop for ever
-			allDoctorsBusy = true;
+			allDoctorsBusy = true; //all the doctors are busy
 			break;
 		}
 	}
@@ -134,61 +134,67 @@ void EmergencyRoom::printPatients() {
 	}
 }
 
-void EmergencyRoom::searchName(){
+void EmergencyRoom::searchName() {
 	std::string names;
-	std::cout << "Plese Enter a valid name: ";
-	std:: cin >> names;
+	std::cout << "Please Enter a valid name: ";
+	std::cin >> names;
 
-	std::map<std::string, person*>:: iterator iter;
+	std::map<std::string, person*>::iterator iter;
 
-	//iter = residentsTreated.find("names");
-	std::cout << "Name: " << residentsTreated.find("names")->second << std::endl;
+	iter = residentsTreated.find(names);
+	std::cout << (*iter).second->getName() << " visits: " << (*iter).second->getNumVisits() << " Average time: " << (*iter).second->getAvgVisitTime() << std::endl;
 }
 
 void EmergencyRoom::displayRecords()
 {
 	int ans = 0;
+	while (ans != 4)
+	{
+
+	
+
 	std::cout << "=================== PIRATES HOSPITAL ==================" << std::endl;
 	std::cout << "What would you like to do? " << std::endl;
-    std::cout << "1. Look at all the residents treated" << std::endl;
-    std::cout << "2. Search by name a resident treated" <<std::endl;
-    std::cout << "3. Calculate average time of treatment" << std::endl;
-    std::cout << "4. Exit" << std::endl;
+	std::cout << "1. Look at all the residents treated" << std::endl;
+	std::cout << "2. Search by name a resident treated" << std::endl;
+	std::cout << "3. Calculate average time of treatment" << std::endl;
+	std::cout << "4. Exit" << std::endl;
 	std::cout << "--------------------------------------------------" << std::endl;
 	std::cout << "Option: ";
-    std::cin >> ans;
+	std::cin >> ans;
 
-	if(ans < 0 || ans > 4)
+	if (ans < 0 || ans > 4)
 	{
-		std::cout<< "Option not valid!";
+		std::cout << "Option not valid!";
 	}
 
-	if ( ans >= 1 || ans <= 4)
-        {
-            switch(ans) {
-            case 1:
-            printPatients();
-            break;
-            case 2:
-            searchName();
-            break;
-            case 3:
-			// average time here
-            std:: cout << "HELLOOO" << std::endl;
-            break;
-            case 4:
-            break;
-            }
-        }
+	if (ans >= 1 || ans <= 4)
+	{
+		switch (ans) {
+		case 1:
+			printPatients();
+			break;
+		case 2:
+			searchName();
+			break;
+		case 3:
+			printAvgVisitTime();
+			break;
+		case 4:
+			break;
+		}
+	}
+	
+	}
 }
 void EmergencyRoom::printAvgVisitTime() { //!!!!
 	float numTreated = residentsTreated.size();
 	float totalTime = 0;
 	std::map <std::string, person*> ::iterator iter = residentsTreated.begin();
 	for (iter; iter != residentsTreated.end(); iter++) {
-		if(!(*iter).second->isSick())
+		if (!(*iter).second->isSick())
 			totalTime += (*iter).second->getAvgVisitTime();
 	}
-	std::cout << "Average Visit Time: " << totalTime / numTreated;
+	std::cout << "Average Visit Time: " << totalTime / numTreated << std::endl;
 
 }

@@ -37,7 +37,7 @@ int main() {
 		ER->treatPatients(); //patients are treated
 
 	}
-	ER->printPatients();
+	ER->displayRecords();
 	
 }
 
@@ -70,7 +70,7 @@ void setUpER(EmergencyRoom * room) {
 }
 void updateRoomQueue(EmergencyRoom * r, int seed, std::vector<std::string>* names) {
 	int clockTick = seed;
-	seed++; //change the seed so we get a different number for prob 
+	seed++;
 	srand(seed); //send our seed value to create random numbers
 	int prob = rand() % 10; //probablity for what type of patient arrives
 	
